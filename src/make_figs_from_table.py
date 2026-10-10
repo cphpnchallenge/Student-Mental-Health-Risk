@@ -22,8 +22,8 @@ import statlib as S
 
 warnings.filterwarnings("ignore")
 
-OUT = "/sessions/pensive-trusting-maxwell/mnt/outputs"
-FIG = "/sessions/pensive-trusting-maxwell/mnt/student_mental_health/analysis/figures/eda_from_table"
+OUT = "/Users/ruizhang/work/student-mental-health/clean_data"
+FIG = "/Users/ruizhang/work/student-mental-health/figures"
 os.makedirs(FIG, exist_ok=True)
 
 INK = "#7c8798"; BLUE = "#3b82f6"; AMBER = "#f59e0b"

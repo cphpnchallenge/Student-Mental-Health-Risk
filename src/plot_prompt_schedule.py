@@ -23,8 +23,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
-OUT = "/sessions/pensive-trusting-maxwell/mnt/outputs"
-FIG = "/sessions/pensive-trusting-maxwell/mnt/student_mental_health/analysis/figures"
+OUT = "/Users/ruizhang/work/student-mental-health/clean_data"
+FIG = "/Users/ruizhang/work/student-mental-health/figures"
 NIGHT_WINDOW_H = 10          # build_table.py: onset + 10 h, truncated at prompt
 
 MM = 1 / 25.4
@@ -79,7 +79,7 @@ rows = [
     (3, -24, 0, ACT, .18, "24 h window", "Steps, activity levels"),
     (2, -4, 0, ACT, .32, "4 h window", "Steps, activity levels"),
     (1, night0, night1, PHYS, .30, "Prior night",
-     "HRV, SpO₂, sleep score"),
+     r"HRV, SpO$_2$, sleep score"),
 ]
 for y, t0, t1, col, a, name, streams in rows:
     ax.add_patch(Rectangle((t0, y - H / 2), t1 - t0, H, facecolor=col,
