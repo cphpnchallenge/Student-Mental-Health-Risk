@@ -8,8 +8,10 @@
 \usepackage{graphicx}              % Required to insert images
 \usepackage{booktabs}              % Professional quality tables
 \usepackage{hyperref}              % Clickable cross-references & links
+\usepackage{lmodern}
 \usepackage{microtype}             % Improves typography spacing
 \usepackage{tabularx}
+\usepackage{float}
 
 % Hyperref configuration
 \hypersetup{
@@ -23,7 +25,7 @@
 % 3. DOCUMENT METADATA
 \title{\textbf{Analysis of Psychological Stress Responses to Physiological Data from Wearable Devices: A Study of College Student Cohorts}}
 \author{\textbf{David Xie} \\ Department of Applied Statistics and Probability, UC Santa Barbara}
-\date{\today}
+% \date{\today}
 
 % 4. CORE CONTENT
 \begin{document}
@@ -34,34 +36,127 @@
 Stress is an important factor in student well-being, yet it can be difficult to measure objectively using self-reported information alone. This study investigates whether physiological and behavioral data collected from Fitbit wearable devices can be used to analyze and predict the levels of mental stress and anxiety for college students. Physiological data elements include activity level, Root Mean Square of Successive Differences (RMSSD) of heart rate variability (HRV), heart rate-to-heart rate variability ratio (lf/hf), deep sleep duration, sleep quality score, step count, and oxygen saturation. Additionally, the participants provided daily ratings of stress and anxiety using a mobile application. This publicly available data was collected throughout the duration of a semester (February to July 2026) from 35 undergraduate volunteers at two universities in Mexico (https://doi.org/10.5281/zenodo.18706837). We examined the correlations between self-reported stress/anxiety and HRV for each individual. Correlation strength and direction varied substantially across participants. The group-level mean correlation was effectively close to zero based on this dataset. These findings indicate that the psychological stress to physiological relationship is highly idiosyncratic rather than uniform, reflecting individual differences in autonomic reactivity, baseline HRV, coping style, and behavioral expression of stress.
 \end{abstract}
 
-\hrule
-\tableofcontents
-\vspace{0.8cm}
-\hrule
+\textbf{Keywords:} wearable sensors; heart rate variability; stress; anxiety; college students; ecological momentary assessment
 
 \section{Introduction}
-Stress and anxiety are common concerns among college students and can have important consequences for psychological well-being, academic performance, sleep, and daily functioning. The college environment can expose students to a variety of potential stressors, including academic responsibilities, examinations, social relationships, financial concerns, and changes in living circumstances. Because stress and anxiety are subjective psychological experiences, they are often measured through questionnaires or self-reported ratings. Although self-reports provide valuable information about an individual's perceived psychological state, they can be influenced by recall difficulties, differences in how individuals interpret stress, and variation in willingness or ability to report their experiences. These limitations have motivated researchers to investigate whether physiological and behavioral measurements can provide additional information about an individual's stress and anxiety levels.
 
-Wearable devices such as Fitbits provide an opportunity to collect physiological and behavioral information continuously in relatively natural settings. Rather than relying exclusively on measurements taken during laboratory sessions, wearable devices can record information over extended periods of everyday life. Measurements such as physical activity, sleep duration and quality, heart rate variability (HRV), heart rate, and blood oxygen saturation may provide insight into changes in physiological functioning that occur alongside psychological experiences. Combining these measurements with self-reported assessments may therefore provide a more comprehensive approach to studying stress and anxiety.
+\subsection{Background}
+Stress is a complex psychological and physiological response that occurs when an individual encounters demands that challenge physical or psychological stability. Although stress is a common part of everyday life, accurately measuring it remains challenging. There is no universally accepted standard for evaluating stress, and researchers have used a combination of psychological assessments and biological measures to characterize the stress response. Self-reported measures can provide important information about an individual's perceived psychological state, but physiological measurements may provide complementary information about how the body responds to stressful experiences \cite{reference 1}.
 
-Among physiological measures, HRV has received particular attention in research concerning psychological stress. HRV describes variation in the time intervals between successive heartbeats and is influenced by the activity of the autonomic nervous system. One commonly used measure of HRV is the Root Mean Square of Successive Differences (RMSSD), which captures short-term variations in heart rate and is often used as an indicator of parasympathetic nervous system activity. Another measure, the low-frequency to high-frequency (LF/HF) ratio, has historically been used to characterize aspects of autonomic regulation. Changes in these measures may be associated with psychological stress; however, physiological responses to stress are not necessarily identical across individuals. Differences in baseline physiology, autonomic reactivity, coping mechanisms, lifestyle, and behavioral responses may affect the extent to which psychological experiences are reflected in wearable-device measurements.
+Heart rate variability (HRV) has emerged as a potential noninvasive measure of autonomic nervous system activity and physiological responses to stress. HRV represents the variation in the time intervals between successive heartbeats and reflects the ability of the cardiovascular system to respond to changing physiological and environmental demands. Lower HRV has been associated with impaired autonomic regulation and reduced ability to respond to stressors \cite{reference 1}. In particular, the Root Mean Square of Successive Differences (RMSSD) is a time-domain measure of HRV that reflects beat-to-beat variation and is influenced by parasympathetic activity \cite{reference 1}. Frequency-domain measures such as the low-frequency to high-frequency (LF/HF) ratio have also been investigated as indicators of autonomic responses to psychological stress. Previous studies have reported changes in HRV measures during stressful situations, including increases in LF/HF and reductions in measures associated with parasympathetic activity \cite{reference 1}.
 
-This individual variability presents an important challenge when attempting to use physiological data to analyze or predict stress. A physiological measure that is associated with stress for one person may show a weaker association, no association, or even an association in the opposite direction for another person. Consequently, relationships observed at the group level may not accurately represent the experiences of individual participants. Examining individual-level relationships between physiological measurements and self-reported stress and anxiety can therefore provide insight into whether wearable-device data exhibit a consistent relationship with psychological states or whether these relationships are primarily individualized.
+However, the relationship between psychological stress and HRV is not necessarily consistent across individuals. A review of studies examining HRV responses to psychological stress found substantial variation in autonomic responses, with individuals exhibiting different patterns of sympathetic activation, vagal withdrawal, or reciprocal autonomic responses \cite{reference 1}. Furthermore, the review found that although HRV measures changed in response to stress in many studies, the specific changes were not consistently observed across all studies \cite{reference 1}. These findings suggest that HRV may be useful for understanding physiological stress while also highlighting the importance of considering individual differences when interpreting the relationship between physiological and psychological measures. HRV should therefore be viewed as a measure of autonomic and cardiovascular regulation rather than as a direct or definitive measure of a particular psychological state \cite{reference 1}.
 
-The present study investigates the relationship between physiological and behavioral measurements collected from Fitbit devices and self-reported levels of mental stress and anxiety among undergraduate students. The dataset consists of observations collected throughout a semester from 35 undergraduate volunteers at two universities in Mexico. Participants provided daily ratings of stress and anxiety through a mobile application while Fitbit devices collected measures including physical activity, RMSSD, LF/HF ratio, deep sleep duration, sleep quality, step count, and oxygen saturation. This study focuses particularly on the relationship between HRV and self-reported psychological states by examining the correlation between these measures for each participant. By evaluating these relationships at the individual level, this study seeks to determine whether HRV demonstrates a consistent association with perceived stress and anxiety across college students or whether substantial individual differences exist in the physiological expression of psychological stress.
+\subsection{Related Work}
+Recent advances in wearable technology have created new opportunities to investigate these relationships outside of controlled laboratory environments. Consumer wearable devices can continuously collect physiological and behavioral measurements, while mobile applications can collect repeated assessments of an individual's psychological state. This combination has been described as a form of digital phenotyping, in which passively collected physiological data and ecological momentary assessments can be used to characterize changes in health and emotional states in real-world settings \cite{reference 2}. Unlike traditional studies that rely on a single laboratory measurement or retrospective questionnaire, longitudinal wearable data can capture physiological and behavioral changes over extended periods of everyday life.
 
-\section{Formatting Examples}
-Here are a few essential structural blocks to jumpstart your writing.
+Recent research has also emphasized the potential importance of physical activity when examining the relationship between emotional distress and HRV. In a longitudinal study of STEM graduate students using wearable devices and daily ecological momentary assessments, higher emotional distress was associated with lower HRV, while greater daily physical activity was associated with higher HRV specifically on days characterized by high emotional distress \cite{reference 2}. These findings suggest that physiological responses to psychological distress may depend not only on the level of distress itself but also on behavioral factors such as physical activity. More broadly, the integration of wearable-derived physiological measurements with repeated self-reported assessments provides an opportunity to investigate the dynamic and potentially individualized relationship between psychological experiences and physiological responses.
 
-\subsection{Mathematics and Equations}
-You can write inline math like this: $E = mc^2$. For standalone equations that require number labels, use the \texttt{equation} block:
-\begin{equation}
-    f(x) = \int_{a}^{b} \frac{1}{x} \, dx
-\end{equation}
+Laboratory benchmarks such as WESAD, which records chest- and wrist-worn signals from 15 participants during induced stress, amusement, and baseline conditions, have supported classifiers with high binary accuracy \cite{reference 3}. Performance in free-living settings is considerably less consistent. A recent scoping review of 34 studies on wearable-based stress modeling in naturalistic settings found that most used classical machine learning (Random Forest most often), that reported F1-scores spanned 0.23-0.90, that stress labels were almost always self-reported through ecological momentary assessment (EMA), and that roughly 46\% of applicable studies showed likely data leakage from splitting data by observation rather than by participant \cite{reference 4}. Only about one in eight studies attempted forecasting rather than concurrent detection \cite{reference 4}.
 
-\subsection{Adding Tables}
-In this table below, the 95\% CI for Stress is between stress and average RMSSD. All \text{${\rho}$} values (Pearson's correlation coefficient) are between the respective coefficient and average RMSSD. Note that some participants (out of 35) have been removed due to lack of data. Furthermore, the statistically significant participants for stress (as indicated because the confidence intervals do not contain 0) are bolded for convenience.
-\begin{table}[h]
+Individual differences are a recurring difficulty. Personalized models have been reported to outperform generalized models for emotion recognition from consumer wearables, at the cost of needing labeled data from each person \cite{reference 5}. Studies in student populations illustrate both the promise and the limits of the approach. In 525 first-year college students wearing Oura rings, longer total sleep time, lower resting heart rate, higher HRV, and lower respiratory rate were each associated with lower odds of moderate-to-high weekly stress in mixed-effects models, with small per-unit effects \cite{reference 6}. A pre-trained model for momentary anxiety in socially anxious students reached only 60.4\% balanced accuracy \cite{reference 7}. In a 12-week randomized trial (n = 117), a smartwatch-derived measure of stress moments fell in the intervention arm while self-reported stress and anxiety scores did not differ between arms, a reminder that objective and subjective stress measures can diverge \cite{reference 8}.
+
+The dataset analysed here, SSAQS, makes that divergence explicit: its authors report a Pearson correlation of only 0.048 between the Fitbit-computed stress score and the self-reported stress score \cite{reference 9}. The device score reflects physiological signs of arousal derived from heart rate, sleep and activity, whereas the questionnaire captures self-perceived mental stress \cite{reference 9}. Whether the raw physiological signals relate to self-reported stress and anxiety, and whether that relationship is similar from one student to the next, has not been characterized for this dataset.
+
+
+\subsection{Objectives}
+The present study applies this approach to a publicly available dataset collected from 35 undergraduate volunteers at two universities in Mexico over the course of a semester from February through July 2026. Participants wore Fitbit devices that collected physiological and behavioral measurements, including physical activity, RMSSD, LF/HF ratio, deep sleep duration, sleep quality, step count, and oxygen saturation. Participants also provided daily ratings of stress and anxiety through a mobile application. Rather than assuming that a single physiological measure has a uniform relationship with psychological stress across all participants, this study examines the relationship between self-reported stress and anxiety and HRV at the individual level.
+
+Specifically, we examine the correlations between self-reported psychological stress and HRV for each participant and compare the strength and direction of these relationships across individuals. This approach is motivated by previous evidence that psychological stress can produce heterogeneous autonomic responses and that wearable-derived physiological measures may be influenced by behavioral factors such as physical activity. The objective of this study is therefore not only to determine whether HRV is associated with perceived stress and anxiety, but also to investigate whether that association is consistent across college students or instead varies substantially between individuals. Understanding this individual variability may provide important insight into the limitations and potential applications of wearable physiological data for monitoring psychological stress.
+
+\section{Methods}
+
+\subsection{Dataset and Participants}
+We used the publicly released SSAQS dataset \cite{reference 9}. Thirty-five undergraduate students in computer science and mathematics engineering at Tecnológico de Monterrey and Instituto Politécnico Nacional (Mexico) took part (ages 19-29, mean 20.4; 68.5\% male) during one academic semester (2025-02-14 to 2025-07-09 in the aggregated data). Participants wore a Fitbit Inspire 3 continuously. Three participants provided no wearable data, leaving 32 with wearable streams \cite{reference 9}.
+
+Ground truth came from a daily EMA delivered through the m-Path application at a random time between 20:00 and 22:00, with reminders at 30, 60, 90, and 120 minutes. Two items rated on 0-100 scales asked for the participant's average stress level and average anxiety level during the day \cite{reference 9}. Wearable streams were: HRV at 5-minute intervals (RMSSD, low-frequency power, high-frequency power, coverage), SpO2 at about 1-minute intervals, activity intensity at about 1-minute intervals, step counts, a nightly sleep record (overall sleep score and deep-sleep minutes), and Fitbit's proprietary daily stress score. The device stress score was not used in any analysis reported here.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{prompt_schedule.png}
+    \caption{Prompt schedule}
+    \label{fig:prompt_schedule}
+\end{figure}
+
+\subsection{Data Cleaning and Aggregation}
+Each participant's files were processed independently and aggregated to one row per participant-day (local calendar day). The main steps were:
+
+\begin{itemize}
+\item Time alignment. Activity, step, SpO2, and sleep timestamps are stored in UTC and were shifted to local time using each participant's modal time-zone offset from the questionnaire file (UTC-6 for nearly all participants). HRV timestamps and the device stress dates carry no time-zone marker and are already local; HRV is recorded only during sleep (local 23:00-08:00 in the data), which confirmed the local interpretation. Questionnaire timestamps (Unix epoch seconds) were converted with their own offset field.
+
+\item Label cleaning. Participant-days without a self-reported stress and anxiety value were removed from all analyses (483 of 3,615 participant-days, 13.4\%). The two items were always present together. One participant-day with two responses was averaged.
+
+\item Sensor artifact handling. SpO2 readings outside 70-100\% were treated as sensor errors and excluded (about 19\% of 978,367 raw readings; for example, implausible values near 50\% appear in the raw files). Fitbit stress-score days flagged as failed calculations were excluded.
+
+\item Activity features. Minute-level activity levels were converted to the percentage of the day spent at each intensity.
+
+\item Missing wearable data. No values were imputed for the correlation analysis; each correlation uses only days on which both variables are observed.
+\end{itemize}
+
+\subsection{Derived Physiological Signals}
+Because HRV is recorded during sleep, we paired each day's evening self-report with the preceding night. The night for calendar day d was defined as local 22:00 on day d-1 through 09:00 on day d. Overnight RMSSD was the mean RMSSD over the 5-minute HRV bins in that window; overnight LF/HF was the mean low-frequency power divided by the mean high-frequency power; overnight SpO2 was the mean of valid readings in the window. Nights with fewer than 12 HRV bins (1 hour) or fewer than 30 SpO2 readings were discarded. Sleep score was the overall score of the sleep record dated day d (the night ending that morning). As a sensitivity analysis, we repeated all analyses using whole-day means of RMSSD, LF/HF and SpO2.
+
+\subsection{Statistical Analysis}
+For every participant and every signal-target pair, we computed the Pearson correlation between the signal and the same day's self-reported stress or anxiety, requiring at least 20 paired days. 95\% confidence intervals used Fisher's z transformation; Spearman correlations (with the Bonett-Wright standard-error adjustment \cite{reference 10}) were computed as a robustness check. Individual p-values are uncorrected and are reported descriptively; with about 100 participant-signal tests per target, a few nominally significant results are expected by chance.
+
+To quantify between-participant variability, each r was Fisher-transformed and weighted by n-3. Cochran's Q tested whether the participant-level correlations differ by more than sampling error; I² expressed the proportion of observed variability beyond sampling error \cite{reference 12}, the DerSimonian-Laird estimator gave the between-participant variance \cite{reference 11}, and the random-effects mean (back-transformed to r) summarized the group-level correlation. A binomial test compared the number of participants with p < 0.05 against the 5\% expected if there were no relationship.
+
+\section{Results}
+
+\subsection{Data Summary}
+After cleaning, the dataset contained 3,132 labeled participant-days from 35 participants (32 with wearable data). Participants contributed a median of 103 labeled days (IQR 66-115; range 7-135). Table \ref{tab:Table_1} summarizes the cohort and Table \ref{tab: Table_2} the raw record counts and wearable coverage.
+
+\begin{table}[H]
+    \centering
+    \caption{Cohort and self-report summary (after cleaning).}
+    \begin{tabularx}{\textwidth}{XX}
+        \toprule
+        \textbf{Characteristic} & \textbf{Value}\\
+        \midrule
+        Participants (total / with wearable data) & 35 / 32\\
+        Participant-days, all / labeled & 3,615 / 3,132\\
+        Labeled days per participant, median (IQR) & 103 (66-115)\\
+        Self-reported stress, mean (SD) & 33.2 (25.7)\\
+        Self-reported anxiety, mean (SD) & 34.4 (27.3)\\
+        Participant mean stress, range & 12.1-89.2\\
+        Participant mean anxiety, range & 9.3-92.7\\
+        Intraclass correlation (stress/anxiety) & 0.38 / 0.37\\
+        Stress-anxiety correlation (pooled) & 0.71\\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:Table_1}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Raw record counts and wearable coverage. Coverage is the share of labeled participant-days with a value, among the 32 participants with wearable data.}
+    \begin{tabularx}{\textwidth}{XXX}
+        \toprule
+        \textbf{Stream} & \textbf{Raw Records} & \textbf{Labeled Days with Data (\%)}\\
+        \midrule
+        HRV (5-min bins) & 151,243 & 54.5\\
+        SpO2 (about 1-min) & 978,367 & 64.5\\
+        Steps & 658,894 & 73.9\\
+        Activity level (about 1-min) & 1,766,244 & 74.9\\
+        Sleep records (nightly) & 1,829 & 45.9\\
+        Questionnaire responses & 3,133 & 100 (by definition)\\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:Table_2}
+\end{table}
+
+To insert an image file, ensure the file (e.g., \texttt{chart.png}) is uploaded to your working directory and use the code below:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{people.png}
+    \caption{Distribution of daily self-reported stress and anxiety for each participant, sorted by median.}
+    \label{fig:people}
+\end{figure}
+
+\subsection{Per-participant correlations}
+
+In Table \ref{tab:Table_3}, the 95\% CI for Stress is between stress and average RMSSD. All \text{${\rho}$} values (Pearson's correlation coefficient) are between the respective coefficient and average RMSSD. Note that some participants (out of 35) have been removed due to lack of data. Furthermore, the statistically significant participants for stress (as indicated because the confidence intervals do not contain 0) are bolded for convenience.
+\begin{table}[H]
     \centering
     \caption{A table of correlation coefficients across the participants.}
     \begin{tabularx}{\textwidth}{XXXXXXX}
@@ -91,25 +186,93 @@ In this table below, the 95\% CI for Stress is between stress and average RMSSD.
         34  & 51   & 63.114  & -0.134& [-0.4, 0.15] & -0.010 & [-0.28, 0.27]\\
         \bottomrule
     \end{tabularx}
-    \label{tab:sample_table}
+    \label{tab:Table_3}
 \end{table}
 
-\subsection{Inserting Figures}
-To insert an image file, ensure the file (e.g., \texttt{chart.png}) is uploaded to your working directory and use the code below:
-\begin{figure}[h]
+Correlation strength and direction varied substantially across participants. For overnight RMSSD and stress, individual correlations ranged from -0.41 to +0.38; 58\% were positive, and of the 5 nominally significant participants, 2 were positive and 3 negative. LF/HF showed the same pattern (both positive and negative nominally significant correlations for each target), while SpO2 correlations were small and centred slightly below zero. Sleep score was the exception: 83\% (stress) and 79\% (anxiety) of participants had a negative correlation. Confidence intervals were wide (median width about 0.5), reflecting 50-100 paired days per participant. Spearman correlations agreed closely with Pearson (r = 0.91 across all estimates; Table 3).
+
+\subsection{Group-level correlation and heterogeneity}
+
+\begin{table}[H]
     \centering
-    % \includegraphics[width=0.6\textwidth]{chart.png}
-    \caption{Placeholder caption for your visual data.}
-    \label{fig:sample_figure}
-\end{figure}
+    \caption{A table of correlation coefficients across the participants.}
+    \begin{tabularx}{\textwidth}{XXXXXXX}
+        \toprule
+        \textbf{Participant} & \textbf{Number} & \textbf{RMSSD} & \textbf{${\rho}$ stress} & \textbf{95\% CI for Stress} & \textbf{${\rho}$ anxiety} & \textbf{95\% CI for Anxiety}\\
+        \midrule
+        1    & 27   & 69.260  & 0.148 & [-0.25, 0.5] & 0.191 & [-0.2, 0.53]\\
+        2    & 06   & 29.346  & 0.519 & [-0.51, 0.94]& 0.757 &[-0.14, 0.97]\\
+        4    & 06   & 39.121  & 0.007 & [-0.81, 0.81] & -0.105 &[-0.84, 0.77]\\
+        5    & 85   & 27.947  & 0.200 & [-0.01, 0.4] & 0.234 & [0.02, 0.43]\\
+        6    & 32   & 103.713& 0.080 & [-0.28, 0.42] & 0.103 &[-0.26, 0.44]\\
+        7    & 83   & 126.437 & 0.181 & [-0.04, 0.38] & 0.120 & [-0.1, 0.33]\\
+        \textbf{8}    & \textbf{89}   & \textbf{54.964}   & \textbf{0.242} & \textbf{[0.04, 0.43]} & 0.244 & [0.04, 0.43]\\
+        10  & 34   & 95.730   & 0.064 & [-0.28, 0.39] & 0.148 & [-0.2, 0.46]\\
+        \textbf{17}  & \textbf{05}   & \textbf{43.132}    & \textbf{0.996} & \textbf{[0.94, 1.0]} & 0.971 & [0.62, 1.0]\\
+        19  & 41   & 105.997 & 0.064 & [-0.25, 0.36] & -0.255 &[-0.52, 0.06]\\
+        20  & 38   & 60.337   & 0.044 & [-0.28, 0.36] & 0.390 & [0.08, 0.63]\\
+        22  & 19   & 111.330& 0.046 & [-0.42, 0.49] & 0.288 & [-0.19, 0.66]\\
+        \textbf{24}  & \textbf{104} & \textbf{107.419}& \textbf{-0.294}& \textbf{[-0.46, -0.11]} & -0.130 & [-0.31, 0.06]\\
+        26  & 68   & 67.118  & 0.086 & [-0.16, 0.32] & 0.204 & [-0.04, 0.42]\\
+        27  & 84   & 69.800   & -0.144& [-0.35, 0.07] & -0.204 & [-0.4, 0.01]\\
+        \textbf{28}  & \textbf{35}   & \textbf{26.514}  & \textbf{-0.382}& \textbf{[-0.63, -0.06]} & -0.225 & [-0.52, 0.12]\\
+        29  & 28   & 62.548  & 0.160 & [-0.23, 0.5] & 0.134 & [-0.25, 0.48]\\
+        30  & 75   & 40.945  & 0.155 & [-0.07, 0.37] & -0.106 & [-0.33, 0.12]\\
+        \textbf{32}  & \textbf{71}   & \textbf{71.783}  &\textbf{-0.249}& \textbf{[-0.46, -0.02]} & -0.340 &[-0.53, -0.12]\\
+        33  & 49   & 64.126    & 0.152 & [-0.13, 0.42] & 0.139 & [-0.15, 0.4]\\
+        34  & 51   & 63.114  & -0.134& [-0.4, 0.15] & -0.010 & [-0.28, 0.27]\\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:Table_3}
+\end{table}
+
+The group-level mean correlation was effectively close to zero in this dataset: every random-effects pooled correlation had an absolute value below 0.10, and for RMSSD, LF/HF and SpO2 the 95\% interval included zero. Sleep score was the only signal with a pooled interval excluding zero, with a small negative value (stress -0.092; anxiety -0.083).
+Heterogeneity tests supported genuine between-participant differences for the HRV measures. For overnight RMSSD, Q was significant for both stress (I² = 63\%) and anxiety (I² = 56\%), and the number of participants with nominally significant correlations (5 of 24 in each case) exceeded the 5\% expected by chance (binomial p = .006). LF/HF showed significant heterogeneity for anxiety (I² = 55\%) and a similar but non-significant trend for stress (I² = 33\%, p = .061). In contrast, the spread of SpO2 (I² = 0-15\%) and sleep-score correlations (I² = 1-8\%) was compatible with sampling error alone.
+Sensitivity analysis. Pairing with whole-day instead of overnight means gave essentially the same picture (Appendix Table S1): pooled correlations remained between -0.04 and +0.02 for the HRV and SpO2 measures, and heterogeneity was again strongest for RMSSD (I² = 57\% for anxiety, 67\% for stress). Because HRV is recorded only during sleep, the whole-day HRV mean is itself an overnight quantity. One difference: whole-day SpO2 showed significant heterogeneity for stress (I² = 42\%, p = .009), which overnight SpO2 did not (I² = 0\%); whole-day SpO2 includes waking readings, and we did not investigate the reason. The sleep-score results are identical in both analyses by construction.
+
 
 \section{Conclusion}
 This concludes the default structural blueprint of the document.
 
 % 5. BIBLIOGRAPHY & REFERENCES
 \begin{thebibliography}{99}
-\bibitem{sample_reference}
-Author, A. (2026). \textit{The Title of the Authored Work}. Journal of Examples, 12(3), 45-67.
+\bibitem{reference 1}
+Kim H-G, Cheon E-J, Bai D-S, Hwan Lee Y, Koo B-H.  (2017). \textit{Stress and Heart Rate Variability: A Meta-Analysis and Review of the Literature}. Psychiatry Investig 2018;15(3):235-245.
+
+\bibitem{reference 2}
+Pinkerton C, Guo Y, Qu A.  (2026). \textit{Physical activity buffers physiological stress during high emotional distress: a wearable-derived prospective cohort study}. https://doi.org/10.64898/2026.04.05.26350215.
+
+\bibitem{reference 3}
+Schmidt P, Reiss A, Duerichen R, Marberger C, Van Laerhoven K. Introducing WESAD, \textit{a multimodal dataset for wearable stress and affect detection}. In: Proceedings of the 20th ACM International Conference on Multimodal Interaction (ICMI '18). 2018:400-408. doi:10.1145/3242969.3242985
+
+\bibitem{reference 4}
+Sharma S, Janakiraman AK, Chen LK. \textit{Machine learning frameworks for wearable-based stress modeling in naturalistic settings: scoping review}. JMIR mHealth uHealth. 2026;14:e76632. doi:10.2196/76632
+
+\bibitem{reference 5}
+Li J, Washington P. \textit{A comparison of personalized and generalized approaches to emotion recognition using consumer wearable devices: machine learning study}. JMIR AI. 2024;3:e52171. doi:10.2196/52171
+
+\bibitem{reference 6}
+Bloomfield LSP, Fudolig MI, Kim J, Llorin J, Lovato JL, McGinnis EW, McGinnis RS, Price M, Ricketts TH, Dodds PS, Stanton K, Danforth CM. \textit{Predicting stress in first-year college students using sleep data from wearable devices}. PLOS Digit Health. 2024;3(4):e0000473. doi:10.1371/journal.pdig.0000473
+
+\bibitem{reference 7}
+Ahmed MS, French N, Rucker M, Wang Z, Myers-Brower T, Petz K, Boukhechba M, Teachman BA, Barnes LE. \textit{WatchAnxiety: a transfer learning approach for state anxiety prediction from smartwatch data}. arXiv:2509.13725. 2025.
+
+\bibitem{reference 8}
+Ta, A., Salgin, N., Armstrong, C., Phillips Reindel, K., Mehta, R. K., McDonald, A., McCord, C., Sasangohar, F. \textit{Machine-learning enabled real-time stress monitoring, detection, and management in college students: a wearable technology approach}. IISE Transactions on Healthcare Systems Engineering, (2026) 1–14. https://doi.org/10.1080/24725579.2026.2685699
+
+\bibitem{reference 9}
+García-Ceja E, Alvarado-Uribe J, Escamilla-Ambrosio PJ, Lara A, Mena-Martínez A, Gallegos-García G, González-Mendoza M, Monroy R, Martínez Luna G, Fernández-Cárdenas JM. \textit{A dataset of university students' stress and anxiety levels based on questionnaires and wearable sensors}. Sci Data. 2026;13:732. doi:10.1038/s41597-026-07085-7
+
+\bibitem{reference 10}
+Bonett DG, Wright TA. \textit{Sample size requirements for estimating Pearson, Kendall and Spearman correlations}. Psychometrika. 2000;65(1):23-28.
+
+\bibitem{reference 11}
+DerSimonian R, Laird N. \textit{Meta-analysis in clinical trials}. Control Clin Trials. 1986;7(3):177-188.
+
+\bibitem{reference 12}
+Higgins JPT, Thompson SG. \textit{Quantifying heterogeneity in a meta-analysis}. Stat Med. 2002;21(11):1539-1558.
+
+
 \end{thebibliography}
 
 \end{document}
